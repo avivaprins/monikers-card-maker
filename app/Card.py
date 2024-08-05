@@ -16,6 +16,18 @@ class Card(object):
     """Card: class for cards"""
 
     def __init__(self, card_template: str, save_dir: str, **kwargs):
+        """
+
+
+        Args:
+            card_template (str): Template of the card, as an svg with placeholders.
+            save_dir (str): Directory to save the drawn card.
+            **kwargs: Additional card attributes, which may be required.
+
+        Returns:
+            None.
+
+        """
         self.save_dir = save_dir
         for k, v in kwargs.items():
             setattr(self, k, v)
@@ -41,6 +53,19 @@ class Card(object):
         max_lines: int,
         pad_lines_flag: bool,
     ):
+        """
+        Helper function that splits text into lines
+
+        Args:
+            text (str): Text, e.g. a blurb.
+            width (int): Maximum character length of a line.
+            max_lines (int): Maximum number of lines.
+            pad_lines_flag (bool): Whether to pad lines until max_lines is reached.
+
+        Returns:
+            lines ([str]): Text, split into lines.
+
+        """
         text = textwrap.fill(text, width=width)
         lines = text.split("\n")
 
@@ -61,6 +86,16 @@ class Card(object):
         return lines
 
     def generate_drawing(self, card_template: str):
+        """
+        Draws the card using the svg-style card template.
+
+        Args:
+            card_template (str): Template of the card, as an svg with placeholders.
+
+        Returns:
+            svg (str): Drawn card as svg.
+
+        """
         svg = card_template
         svg = re.sub(r"{{color}}", self.color, svg)
         title = self.split_text(
@@ -97,9 +132,19 @@ class Card(object):
         return svg
 
     def save(self, pdf_flag: bool = True):
+        """
+        Either save to svg or pdf file format
+
+        Args:
+            pdf_flag (bool, optional): Whether to save as pdf. Defaults to True.
+
+        Returns:
+            None.
+
+        """
 
         if pdf_flag:
-            filename = os.path.join(self.save_dir, f"pdf/{self.name}.svg")
+            filename = os.path.join(self.save_dir, f"pdf/temp/{self.name}.svg")
             svg = self.svg
             svg = re.sub(r"Gotham Rounded Book", "GOTHAM_ROUNDED_BOOK", svg)
             svg = re.sub(r"Gotham Rounded Bold", "GOTHAM_ROUNDED_BOLD", svg)
