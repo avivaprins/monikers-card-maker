@@ -52,16 +52,20 @@ def get_params(level: str = ".") -> OrderedDict:
     return params
 
 
-def load_card_data(data_dir: str, data_filename: str) -> pd.DataFrame:
+def load_card_data(
+    data_dir: str, data_filename: str, template_filename: str
+) -> pd.DataFrame:
     """
     Load card data from tsv
 
     Args:
         data_dir (str): Path to the data directory.
         data_filename (str): Name of the tsv.
+        template_filename (str): Name of the template svg
 
     Returns:
         df (pd.DataFrame): card data.
+        card_template: card template
 
     """
     filepath = os.path.join(data_dir, data_filename)
@@ -71,7 +75,11 @@ def load_card_data(data_dir: str, data_filename: str) -> pd.DataFrame:
     required_columns = ["title", "blurb", "category", "points"]
     assert set(required_columns) <= set(df.columns)
 
-    return df
+    filepath = os.path.join(data_dir, template_filename)
+    with open(filepath) as f:
+        card_template = f.read()
+
+    return df, card_template
 
 
 if __name__ == "__main__":
