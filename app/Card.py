@@ -37,15 +37,16 @@ class Card(object):
     def split_text(
         self,
         text: str,
-        width: int = 40,
-        max_lines: int = 8,
-        pad_lines_flag: bool = True,
+        width: int,
+        max_lines: int,
+        pad_lines_flag: bool,
     ):
         text = textwrap.fill(text, width=width)
         lines = text.split("\n")
 
         n_lines = len(lines)
         assert n_lines <= max_lines
+
         # len_each_line = [len(l) for l in lines[: max_lines - 1]]
         # print(self.title)
         # print(len_each_line)
@@ -81,7 +82,7 @@ class Card(object):
             svg = re.sub(k, v, svg)
 
         blurb_text = self.split_text(
-            text=self.blurb, width=40, max_lines=8, pad_lines_flag=True
+            text=self.blurb, width=35, max_lines=8, pad_lines_flag=True
         )
         for i, line in enumerate(blurb_text):
             regex = r"{{text" + str(i + 1) + r"}}"
@@ -96,16 +97,23 @@ class Card(object):
         return svg
 
     def save(self, pdf_flag: bool = True):
-        filename = os.path.join(self.save_dir, f"svg/{self.name}.svg")
-        with open(filename, "w") as f:
-            f.write(self.svg)
 
-        # svg_filename = filename
-        # pdf_filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
         if pdf_flag:
-            # svg2pdf(svg_filename, pdf_filename)
+            filename = os.path.join(self.save_dir, f"pdf/{self.name}.svg")
+            svg = self.svg
+            svg = re.sub(r"Gotham Rounded Book", "GOTHAM_ROUNDED_BOOK", svg)
+            svg = re.sub(r"Gotham Rounded Bold", "GOTHAM_ROUNDED_BOLD", svg)
+            svg = re.sub(
+                r"Gotham Rounded Medium", "GOTHAM_ROUNDED_MEDIUM", svg
+            )
+            with open(filename, "w") as f:
+                f.write(svg)
             drawing = svglib.svg2rlg(filename)
             filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
             renderPDF.drawToFile(drawing, filename, showBoundary=0)
+        else:
+            filename = os.path.join(self.save_dir, f"svg/{self.name}.svg")
+            with open(filename, "w") as f:
+                f.write(self.svg)
 
         return
