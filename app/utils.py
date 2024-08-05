@@ -2,6 +2,7 @@ from collections import OrderedDict
 import os
 import argparse
 import configparser
+import pandas as pd
 
 
 def get_args() -> dict:
@@ -49,6 +50,23 @@ def get_params(level: str = ".") -> OrderedDict:
     for section in sections:
         params[section] = OrderedDict(config.items(section))
     return params
+
+
+def load_card_data(data_dir: str, data_filename: str) -> pd.DataFrame:
+    """
+    Load card data from tsv
+
+    Args:
+        data_dir (str): Path to the data directory.
+        data_filename (str): Name of the tsv.
+
+    Returns:
+        df (pd.DataFrame): card data.
+
+    """
+    filepath = os.path.join(data_dir, data_filename)
+    df = pd.read_csv(filepath, sep="\t")
+    return df
 
 
 if __name__ == "__main__":
