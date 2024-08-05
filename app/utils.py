@@ -4,7 +4,14 @@ import argparse
 import configparser
 
 
-def get_args():
+def get_args() -> dict:
+    """
+    Get args from the command line
+
+    Returns:
+        dict: arguments from the command line
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-c",
@@ -19,6 +26,16 @@ def get_args():
 
 
 def get_params(level: str = ".") -> OrderedDict:
+    """
+    Get configuration parameters
+
+    Args:
+        level (str, optional): Level of the config file relative to where the function is called. Defaults to ".".
+
+    Returns:
+        OrderedDict: configuration parameters, organized into sections.
+
+    """
     args = get_args()
     config_filename = args["config_file"]
     level = level
