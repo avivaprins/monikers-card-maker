@@ -66,6 +66,11 @@ def load_card_data(data_dir: str, data_filename: str) -> pd.DataFrame:
     """
     filepath = os.path.join(data_dir, data_filename)
     df = pd.read_csv(filepath, sep="\t")
+
+    df.columns = [c.lower() for c in df.columns]
+    required_columns = ["title", "blurb", "category", "points"]
+    assert set(required_columns) <= set(df.columns)
+
     return df
 
 
