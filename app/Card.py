@@ -8,11 +8,15 @@ import warnings
 import textwrap
 import re
 
+from svglib import svglib
+from reportlab.graphics import renderPDF
+
 
 class Card(object):
     """Card: class for cards"""
 
     def __init__(self, card_template: str, save_dir: str, **kwargs):
+        self.save_dir = save_dir
         for k, v in kwargs.items():
             setattr(self, k, v)
 
@@ -26,7 +30,6 @@ class Card(object):
         self.name = self.title.replace(" ", "_").lower()
         self.category = self.category.upper()
         self.points = str(self.points)
-        self.filename = os.path.join(save_dir, f"{self.name}.svg")
         self.svg = self.generate_drawing(card_template=card_template)
 
         return
@@ -92,8 +95,17 @@ class Card(object):
             svg = re.sub(r"{{points}}", "POINT", svg)
         return svg
 
-    def save(self):
-        with open(self.filename, "w") as f:
+    def save(self, pdf_flag: bool = True):
+        filename = os.path.join(self.save_dir, f"svg/{self.name}.svg")
+        with open(filename, "w") as f:
             f.write(self.svg)
+
+        # svg_filename = filename
+        # pdf_filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
+        if pdf_flag:
+            # svg2pdf(svg_filename, pdf_filename)
+            drawing = svglib.svg2rlg(filename)
+            filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
+            renderPDF.drawToFile(drawing, filename, showBoundary=0)
 
         return
