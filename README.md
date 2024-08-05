@@ -20,4 +20,4 @@ Card maker for the game Monikers.
 ## Source
 The game Monikers is available for free under a Creative Commons BY-NC-SA 4.0 license. That means that we are free to adapt the card deck.
 
-Many thanks to https://zenith-gate.glitch.me/ for the svg card generator.
+Many thanks to https://zenith-gate.glitch.me/ for creating the svg card template in Inkscape.
