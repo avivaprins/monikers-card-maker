@@ -14,7 +14,7 @@ Card maker for the game Monikers.
 * Descriptions should not use a word that you are not allowed to say (i.e., the name on the card).
 
 ### Physical properties
-* Dimensions: for compatibility with Moniker's open-source PDF version, a card should be 56.1mm x 84.7mm (2.21" x 3.33"). 
+* Dimensions: each card is 2.49" x 3.74".
 * Cards should be opaque and indistinguishable from the back side.
 
 ## Source
