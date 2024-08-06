@@ -3,9 +3,10 @@ Card maker for the game Monikers.
 
 ## Dependencies
 ### Gotham Rounded font
-* Clue names: Gotham Rounded Medium, https://fontsgeek.com/fonts/Gotham-Rounded-Medium
-* Clue text: Gotham Rounded Book, https://fontsgeek.com/fonts/Gotham-Rounded-Book
-* Points: Gotham Rounded Bold, https://fontsgeek.com/fonts/Gotham-Rounded-Bold
+https://www.typography.com/fonts/gotham-rounded/overview
+* Clue names: Gotham Rounded Medium
+* Clue text: Gotham Rounded Book
+* Points: Gotham Rounded Bold
 
 ## Card making rules
 ### Content
