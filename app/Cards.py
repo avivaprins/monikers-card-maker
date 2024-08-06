@@ -35,11 +35,26 @@ class Cards(object):
         return
 
     def save_cards(self):
+        """
+        Save cards as svgs
+
+        Returns:
+            None.
+
+        """
         for card in self.cards:
-            card.save()
+            card.save(pdf_flag=False)
 
-    def merge_cards(self, cards_per_width: int, cards_per_height: int):
+    def merge_cards(self):
+        """
+        Merge individual card pdfs into one pdf for printing.
 
+        Returns:
+            writer (PdfWriter): writer of the merged pdf.
+
+        """
+        cards_per_width = 3
+        cards_per_height = 3
         n_pages = len(self.cards) // (cards_per_width * cards_per_height) + 1
 
         writer = PdfWriter()
@@ -65,13 +80,18 @@ class Cards(object):
                         return writer
         return writer
 
-    def write_to_pdf(
-        self, cards_per_width: int = 3, cards_per_height: int = 3
-    ):
-        writer = self.merge_cards(
-            cards_per_width=cards_per_width, cards_per_height=cards_per_height
-        )
-        # Write file
+    def save_to_pdf(self):
+        """
+        Merge all cards and save as one pdf
+
+        Returns:
+            None.
+
+        """
+        for card in self.cards:
+            card.save(pdf_flag=True)
+
+        writer = self.merge_cards()
         filename = os.path.join(self.save_dir, "card_set.pdf")
         with open(filename, "wb") as fp:
             writer.write(fp)

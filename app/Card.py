@@ -73,11 +73,6 @@ class Card(object):
         n_lines = len(lines)
         assert n_lines <= max_lines
 
-        # len_each_line = [len(l) for l in lines[: max_lines - 1]]
-        # print(self.title)
-        # print(len_each_line)
-        # print(text)
-
         if n_lines < max_lines and max_lines > 2:
             warnings.warn(f'Card "{self.title}" has {n_lines} lines.')
 
@@ -134,7 +129,7 @@ class Card(object):
 
     def save(self, pdf_flag: bool = True):
         """
-        Either save to svg or pdf file format
+        Either save to svg or pdf file format.
 
         Args:
             pdf_flag (bool, optional): Whether to save as pdf. Defaults to True.
@@ -145,7 +140,11 @@ class Card(object):
         """
 
         if pdf_flag:
-            filename = os.path.join(self.save_dir, f"pdf/temp/{self.name}.svg")
+
+            filename = os.path.join(self.save_dir, "pdf/temp/")
+            os.makedirs(filename, exist_ok=True)
+            filename = os.path.join(filename, f"{self.name}.svg")
+
             svg = self.svg
             svg = re.sub(r"Gotham Rounded Book", "GOTHAM_ROUNDED_BOOK", svg)
             svg = re.sub(r"Gotham Rounded Bold", "GOTHAM_ROUNDED_BOLD", svg)
@@ -159,7 +158,9 @@ class Card(object):
             filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
             renderPDF.drawToFile(drawing, filename, showBoundary=0)
         else:
-            filename = os.path.join(self.save_dir, f"svg/{self.name}.svg")
+            filename = os.path.join(self.save_dir, "svg/")
+            os.makedirs(filename, exist_ok=True)
+            filename = os.path.join(filename, f"{self.name}.svg")
             with open(filename, "w") as f:
                 f.write(self.svg)
 
