@@ -67,6 +67,7 @@ class Card(object):
             lines ([str]): Text, split into lines.
 
         """
+
         text = textwrap.fill(text, width=width)
         lines = text.split("\n")
 
