@@ -24,3 +24,4 @@ if __name__ == "__main__":
         save_dir=params["paths"]["card_dir"],
     )
     cards.save_cards()
+    cards.write_to_pdf()

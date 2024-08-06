@@ -43,6 +43,7 @@ class Card(object):
         self.category = self.category.upper()
         self.points = str(self.points)
         self.svg = self.generate_drawing(card_template=card_template)
+        self.filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
 
         return
 
@@ -151,6 +152,7 @@ class Card(object):
             svg = re.sub(
                 r"Gotham Rounded Medium", "GOTHAM_ROUNDED_MEDIUM", svg
             )
+            svg = re.sub(r"stroke-opacity:0", "stroke-opacity:1", svg)
             with open(filename, "w") as f:
                 f.write(svg)
             drawing = svglib.svg2rlg(filename)
