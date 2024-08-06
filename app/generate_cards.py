@@ -17,7 +17,7 @@ if __name__ == "__main__":
     )
 
     cards = Cards(
-        card_data=card_data,
+        card_data=card_data.head(),
         card_template=card_template,
         save_dir=params["paths"]["card_dir"],
     )
