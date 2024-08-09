@@ -165,3 +165,6 @@ data/*
 !data/card_template.svg
 !data/example_card_set.tsv
 cards/*
+!cards/pdf/clue.pdf
+config/*
+!config/main.ini

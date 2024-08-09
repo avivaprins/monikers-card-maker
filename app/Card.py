@@ -32,16 +32,16 @@ class Card(object):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-        colors = {
-            1: "#57c599",
-            2: "#2bbaf1",
-            3: "#8459b3",
-            4: "#f03c38",
-        }
-        self.color = colors[self.points]
         self.name = self.title.replace(" ", "_").lower()
         self.category = self.category.upper()
-        self.points = str(self.points)
+        self.points = f"{self.points:.0f}"
+        colors = {
+            "1": "#57c599",
+            "2": "#2bbaf1",
+            "3": "#8459b3",
+            "4": "#f03c38",
+        }
+        self.color = colors[self.points]
         self.svg = self.generate_drawing(card_template=card_template)
         self.filename = os.path.join(self.save_dir, f"pdf/{self.name}.pdf")
 
@@ -72,7 +72,8 @@ class Card(object):
         lines = text.split("\n")
 
         n_lines = len(lines)
-        assert n_lines <= max_lines
+        if n_lines <= max_lines:
+            raise ValueError(f"{self.title} has too many lines ({n_lines})")
 
         if n_lines < max_lines and max_lines > 2:
             warnings.warn(f'Card "{self.title}" has {n_lines} lines.')
