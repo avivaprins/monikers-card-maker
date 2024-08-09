@@ -68,7 +68,7 @@ class Cards(object):
                     card = self.cards[c]
                     reader = PdfReader(card.filename)
                     sourcepage = reader.pages[0]
-                    sourcepage.scale(sx=0.9, sy=0.9)
+                    sourcepage.scale(sx=0.95, sy=0.95)
                     destpage.merge_transformed_page(
                         sourcepage,
                         Transformation().translate(
