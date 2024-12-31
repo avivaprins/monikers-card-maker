@@ -13,6 +13,7 @@ https://www.typography.com/fonts/gotham-rounded/overview
 * Clue names are beings (and usually human).
 * Do not be afraid to make clues that are not universal. It adds to the fun!
 * Descriptions should not use a word that you are not allowed to say (i.e., the name on the card).
+* Descriptions should be approximately 235-254 characters long.
 
 ### Physical properties
 * Dimensions: each card is 2.49" x 3.74".
